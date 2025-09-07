@@ -21,7 +21,7 @@ import {
   Camera,
   Tv,
   Headphones,
-  Smartwatch,
+  Watch,
   Gamepad2,
   Monitor,
   AlertTriangle,
@@ -68,7 +68,7 @@ export default function DeviceDetailsPage() {
       camera: Camera,
       tv: Tv,
       headphones: Headphones,
-      smartwatch: Smartwatch,
+      smartwatch: Watch,
       gaming: Gamepad2,
       other: Monitor
     }

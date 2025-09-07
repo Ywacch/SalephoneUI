@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useDeviceStore } from '@/stores/deviceStore'
 import { toast } from 'sonner'
-import { ArrowLeft, ArrowRight, Check, Smartphone, Laptop, Camera, Tv, Headphones, Smartwatch, Gamepad2, Monitor } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Smartphone, Laptop, Camera, Tv, Headphones, Watch, Gamepad2, Monitor } from 'lucide-react'
 import Link from 'next/link'
 import { DeviceCategory, deviceCategories, availableBrands, availableModels } from '@/data/demo-data'
 import { Autocomplete } from '@/components/ui/autocomplete'
@@ -84,7 +84,7 @@ export default function AddDevicePage() {
       camera: Camera,
       tv: Tv,
       headphones: Headphones,
-      smartwatch: Smartwatch,
+      smartwatch: Watch,
       gaming: Gamepad2,
       other: Monitor
     }

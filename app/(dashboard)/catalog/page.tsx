@@ -7,11 +7,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { formatCurrency } from '@/lib/utils'
-import { 
-  Search, 
-  Filter, 
-  Grid3X3, 
-  List, 
+import {
+  Search,
+  Filter,
+  Grid3X3,
+  List,
   TrendingUp,
   TrendingDown,
   Smartphone,
@@ -19,7 +19,7 @@ import {
   Camera,
   Tv,
   Headphones,
-  Smartwatch,
+  Watch,
   Gamepad2,
   Monitor,
   BarChart3,
@@ -273,7 +273,7 @@ export default function DeviceCatalogPage() {
       camera: Camera,
       tv: Tv,
       headphones: Headphones,
-      smartwatch: Smartwatch,
+      smartwatch: Watch,
       gaming: Gamepad2,
       other: Monitor
     }

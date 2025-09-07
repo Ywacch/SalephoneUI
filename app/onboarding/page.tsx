@@ -21,7 +21,7 @@ import {
   Tablet, 
   Tv, 
   Headphones, 
-  Smartwatch, 
+  Watch, 
   Gamepad2,
   Monitor,
   Zap
@@ -119,7 +119,7 @@ export default function OnboardingPage() {
       camera: Camera,
       tv: Tv,
       headphones: Headphones,
-      smartwatch: Smartwatch,
+      smartwatch: Watch,
       gaming: Gamepad2,
       other: Monitor
     }

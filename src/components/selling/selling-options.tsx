@@ -18,10 +18,6 @@ import {
   Twitter,
   Instagram,
   Linkedin,
-  Ebay,
-  Amazon,
-  Shopify,
-  Etsy,
   Plus,
   AlertCircle
 } from 'lucide-react'
@@ -113,10 +109,10 @@ export function SellingOptions({ device, onClose }: SellingOptionsProps) {
       twitter: Twitter,
       instagram: Instagram,
       linkedin: Linkedin,
-      ebay: Ebay,
-      amazon: Amazon,
-      shopify: Shopify,
-      etsy: Etsy
+      ebay: Store,
+      amazon: Store,
+      shopify: Store,
+      etsy: Store
     }
     const Icon = icons[icon as keyof typeof icons] || ExternalLink
     return <Icon className="w-5 h-5" />

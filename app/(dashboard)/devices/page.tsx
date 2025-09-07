@@ -23,7 +23,7 @@ import {
   Camera,
   Tv,
   Headphones,
-  Smartwatch,
+  Watch,
   Gamepad2,
   Monitor
 } from 'lucide-react'
@@ -57,7 +57,7 @@ export default function DevicesPage() {
       camera: Camera,
       tv: Tv,
       headphones: Headphones,
-      smartwatch: Smartwatch,
+      smartwatch: Watch,
       gaming: Gamepad2,
       other: Monitor
     }
