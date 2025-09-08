@@ -4,6 +4,9 @@ import './globals.css'
 import { Providers } from '@/components/providers'
 import { Toaster } from 'sonner'
 
+// Force dynamic rendering for all pages
+export const dynamic = 'force-dynamic'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {

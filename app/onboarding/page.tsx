@@ -26,7 +26,8 @@ import {
   Monitor,
   Zap
 } from 'lucide-react'
-import { DeviceCategory, deviceCategories } from '@/data/demo-data'
+import { deviceCategories } from '@/data/demo-data'
+import { DeviceCategory } from '@/types'
 
 interface OnboardingData {
   step: number
@@ -332,8 +333,12 @@ export default function OnboardingPage() {
                         value={onboardingData.firstDevice?.category || ''}
                         onChange={(e) => updateOnboardingData({
                           firstDevice: {
-                            ...onboardingData.firstDevice,
-                            category: e.target.value as DeviceCategory
+                            category: e.target.value as DeviceCategory,
+                            brand: onboardingData.firstDevice?.brand || '',
+                            model: onboardingData.firstDevice?.model || '',
+                            purchaseDate: onboardingData.firstDevice?.purchaseDate || '',
+                            purchasePrice: onboardingData.firstDevice?.purchasePrice || 0,
+                            condition: onboardingData.firstDevice?.condition || 'good'
                           }
                         })}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange"
@@ -358,8 +363,12 @@ export default function OnboardingPage() {
                         value={onboardingData.firstDevice?.brand || ''}
                         onChange={(e) => updateOnboardingData({
                           firstDevice: {
-                            ...onboardingData.firstDevice,
-                            brand: e.target.value
+                            category: onboardingData.firstDevice?.category || 'phone',
+                            brand: e.target.value,
+                            model: onboardingData.firstDevice?.model || '',
+                            purchaseDate: onboardingData.firstDevice?.purchaseDate || '',
+                            purchasePrice: onboardingData.firstDevice?.purchasePrice || 0,
+                            condition: onboardingData.firstDevice?.condition || 'good'
                           }
                         })}
                         placeholder="e.g., Apple, Samsung"
@@ -374,8 +383,12 @@ export default function OnboardingPage() {
                         value={onboardingData.firstDevice?.model || ''}
                         onChange={(e) => updateOnboardingData({
                           firstDevice: {
-                            ...onboardingData.firstDevice,
-                            model: e.target.value
+                            category: onboardingData.firstDevice?.category || 'phone',
+                            brand: onboardingData.firstDevice?.brand || '',
+                            model: e.target.value,
+                            purchaseDate: onboardingData.firstDevice?.purchaseDate || '',
+                            purchasePrice: onboardingData.firstDevice?.purchasePrice || 0,
+                            condition: onboardingData.firstDevice?.condition || 'good'
                           }
                         })}
                         placeholder="e.g., iPhone 14 Pro"
@@ -391,8 +404,12 @@ export default function OnboardingPage() {
                         value={onboardingData.firstDevice?.purchaseDate || ''}
                         onChange={(e) => updateOnboardingData({
                           firstDevice: {
-                            ...onboardingData.firstDevice,
-                            purchaseDate: e.target.value
+                            category: onboardingData.firstDevice?.category || 'phone',
+                            brand: onboardingData.firstDevice?.brand || '',
+                            model: onboardingData.firstDevice?.model || '',
+                            purchaseDate: e.target.value,
+                            purchasePrice: onboardingData.firstDevice?.purchasePrice || 0,
+                            condition: onboardingData.firstDevice?.condition || 'good'
                           }
                         })}
                       />
@@ -407,8 +424,12 @@ export default function OnboardingPage() {
                         value={onboardingData.firstDevice?.purchasePrice || ''}
                         onChange={(e) => updateOnboardingData({
                           firstDevice: {
-                            ...onboardingData.firstDevice,
-                            purchasePrice: parseFloat(e.target.value) || 0
+                            category: onboardingData.firstDevice?.category || 'phone',
+                            brand: onboardingData.firstDevice?.brand || '',
+                            model: onboardingData.firstDevice?.model || '',
+                            purchaseDate: onboardingData.firstDevice?.purchaseDate || '',
+                            purchasePrice: parseFloat(e.target.value) || 0,
+                            condition: onboardingData.firstDevice?.condition || 'good'
                           }
                         })}
                         placeholder="999"
@@ -423,7 +444,11 @@ export default function OnboardingPage() {
                         value={onboardingData.firstDevice?.condition || ''}
                         onChange={(e) => updateOnboardingData({
                           firstDevice: {
-                            ...onboardingData.firstDevice,
+                            category: onboardingData.firstDevice?.category || 'phone',
+                            brand: onboardingData.firstDevice?.brand || '',
+                            model: onboardingData.firstDevice?.model || '',
+                            purchaseDate: onboardingData.firstDevice?.purchaseDate || '',
+                            purchasePrice: onboardingData.firstDevice?.purchasePrice || 0,
                             condition: e.target.value as 'excellent' | 'good' | 'fair' | 'poor'
                           }
                         })}

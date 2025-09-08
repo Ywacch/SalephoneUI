@@ -246,8 +246,8 @@ export function generatePriceHistory(
   days: number = 30,
   startPrice: number = 100,
   volatility: number = 2
-): Array<{ date: string; value: number }> {
-  const prices: Array<{ date: string; value: number }> = []
+): Array<{ date: string; value: number; source: string }> {
+  const prices: Array<{ date: string; value: number; source: string }> = []
   const now = new Date()
   
   for (let i = days - 1; i >= 0; i--) {
@@ -257,7 +257,8 @@ export function generatePriceHistory(
     
     prices.push({
       date: date.toISOString().split('T')[0],
-      value: parseFloat(newPrice.toFixed(2))
+      value: parseFloat(newPrice.toFixed(2)),
+      source: 'market_data'
     })
   }
   

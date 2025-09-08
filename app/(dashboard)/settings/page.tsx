@@ -24,7 +24,7 @@ import {
 } from 'lucide-react'
 
 export default function SettingsPage() {
-  const { user, updateProfile } = useAuthStore()
+  const { user, updateUser } = useAuthStore()
   const [activeTab, setActiveTab] = useState('profile')
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)
@@ -33,8 +33,7 @@ export default function SettingsPage() {
   // Form states
   const [profileForm, setProfileForm] = useState({
     name: user?.name || '',
-    email: user?.email || '',
-    location: user?.location || ''
+    email: user?.email || ''
   })
   
   const [passwordForm, setPasswordForm] = useState({
@@ -66,7 +65,7 @@ export default function SettingsPage() {
 
   const handleProfileUpdate = async () => {
     try {
-      await updateProfile(profileForm)
+      await updateUser(profileForm)
       toast.success('Profile updated successfully')
     } catch (error) {
       toast.error('Failed to update profile')
@@ -190,16 +189,6 @@ export default function SettingsPage() {
                         value={profileForm.email}
                         onChange={(e) => setProfileForm(prev => ({ ...prev, email: e.target.value }))}
                         placeholder="Enter your email"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Location
-                      </label>
-                      <Input
-                        value={profileForm.location}
-                        onChange={(e) => setProfileForm(prev => ({ ...prev, location: e.target.value }))}
-                        placeholder="Enter your location"
                       />
                     </div>
                   </div>

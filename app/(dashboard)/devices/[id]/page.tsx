@@ -27,7 +27,8 @@ import {
   AlertTriangle,
   CheckCircle,
   Clock,
-  BarChart3
+  BarChart3,
+  ExternalLink
 } from 'lucide-react'
 import Link from 'next/link'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
@@ -42,14 +43,14 @@ export default function DeviceDetailsPage() {
   const [showSellingOptions, setShowSellingOptions] = useState(false)
 
   useEffect(() => {
-    const deviceId = params.id as string
+    const deviceId = params?.id as string
     const foundDevice = devices.find(d => d.id === deviceId)
     if (foundDevice) {
       setDevice(foundDevice)
     } else {
       router.push('/devices')
     }
-  }, [params.id, devices, router])
+  }, [params?.id, devices, router])
 
   const handleDelete = async () => {
     if (device) {

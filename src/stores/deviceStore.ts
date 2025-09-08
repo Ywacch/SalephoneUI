@@ -83,7 +83,7 @@ export const useDeviceStore = create<DeviceState>()(
             notes: data.notes,
             priceHistory,
             recommendation: {
-              action: 'hold',
+              action: 'dont_sell',
               reason: 'Device is performing well. Consider holding for now.',
               confidence: 75,
               urgency: 'low',

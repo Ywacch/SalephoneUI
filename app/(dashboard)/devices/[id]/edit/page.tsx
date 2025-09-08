@@ -29,7 +29,7 @@ export default function EditDevicePage() {
   const { devices, updateDevice, deleteDevice } = useDeviceStore()
   const router = useRouter()
   const params = useParams()
-  const deviceId = params.id as string
+  const deviceId = params?.id as string
 
   const device = devices.find(d => d.id === deviceId)
 

@@ -169,3 +169,6 @@ storybook-static/
 # Misc
 *.tgz
 *.tar.gz
+
+# Template directory (old project files)
+salephone template/

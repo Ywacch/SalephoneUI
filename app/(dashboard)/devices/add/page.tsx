@@ -10,7 +10,8 @@ import { useDeviceStore } from '@/stores/deviceStore'
 import { toast } from 'sonner'
 import { ArrowLeft, ArrowRight, Check, Smartphone, Laptop, Camera, Tv, Headphones, Watch, Gamepad2, Monitor } from 'lucide-react'
 import Link from 'next/link'
-import { DeviceCategory, deviceCategories, availableBrands, availableModels } from '@/data/demo-data'
+import { deviceCategories, availableBrands, availableModels } from '@/data/demo-data'
+import { DeviceCategory } from '@/types'
 import { Autocomplete } from '@/components/ui/autocomplete'
 
 interface DeviceFormData {

@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Device, SellingOption, SocialPlatform, EcommercePlatform } from '@/types'
-import { formatCurrency } from '@/lib/utils'
+import { formatCurrency, cn } from '@/lib/utils'
 import { 
   Share2, 
   ShoppingCart, 
@@ -19,7 +19,8 @@ import {
   Instagram,
   Linkedin,
   Plus,
-  AlertCircle
+  AlertCircle,
+  Store
 } from 'lucide-react'
 
 interface SellingOptionsProps {
