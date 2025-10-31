@@ -80,7 +80,7 @@ export function DashboardSidebar({ collapsed, onToggle }: DashboardSidebarProps)
       initial={false}
       animate={{ width: collapsed ? 64 : 256 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      className="fixed left-0 top-0 h-full bg-black border-r border-gray-800 z-40"
+      className="fixed left-0 top-0 h-full bg-brand-primary border-r border-gray-800 z-40"
     >
       <div className="flex flex-col h-full">
         {/* Header */}

@@ -91,10 +91,10 @@ export default function RegisterPage() {
           className="w-full max-w-md"
         >
           <div className="mb-8">
-            <Link href="/" className="text-2xl font-bold text-black">
+            <Link href="/" className="text-2xl font-bold text-gray-900">
               RevUp
             </Link>
-            <h2 className="mt-6 text-3xl font-bold text-black">
+            <h2 className="mt-6 text-3xl font-bold text-gray-900">
               Create your account
             </h2>
             <p className="mt-2 text-gray-600">

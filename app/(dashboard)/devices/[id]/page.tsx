@@ -238,9 +238,9 @@ export default function DeviceDetailsPage() {
                     <Line 
                       type="monotone" 
                       dataKey="value" 
-                      stroke="#FF6B35" 
+                      stroke="#2563EB" 
                       strokeWidth={2}
-                      dot={{ fill: '#FF6B35', strokeWidth: 2, r: 4 }}
+                      dot={{ fill: '#2563EB', strokeWidth: 2, r: 4 }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
