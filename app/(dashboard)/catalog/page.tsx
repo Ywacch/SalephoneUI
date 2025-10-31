@@ -323,7 +323,7 @@ export default function DeviceCatalogPage() {
           </p>
         </div>
         <Link href="/devices/add">
-          <Button>
+          <Button className="whitespace-nowrap">
             <Plus className="w-4 h-4 mr-2" />
             Add to My Devices
           </Button>
@@ -469,17 +469,17 @@ export default function DeviceCatalogPage() {
 
                     <p className="text-sm text-gray-600 mb-4">{device.description}</p>
 
-                    <div className="flex space-x-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        className="flex-1"
+                        className="w-full sm:flex-1"
                         onClick={() => setSelectedDevice(device)}
                       >
                         <Eye className="w-4 h-4 mr-2" />
                         View Details
                       </Button>
-                      <Button size="sm" className="flex-1">
+                      <Button size="sm" className="w-full sm:flex-1 whitespace-nowrap">
                         <Plus className="w-4 h-4 mr-2" />
                         Add to My Devices
                       </Button>
@@ -650,9 +650,9 @@ export default function DeviceCatalogPage() {
                           <Line 
                             type="monotone" 
                             dataKey="price" 
-                            stroke="#FF6B35" 
+                            stroke="#2563EB" 
                             strokeWidth={2}
-                            dot={{ fill: '#FF6B35', strokeWidth: 2, r: 4 }}
+                            dot={{ fill: '#2563EB', strokeWidth: 2, r: 4 }}
                           />
                         </LineChart>
                       </ResponsiveContainer>
