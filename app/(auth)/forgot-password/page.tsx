@@ -51,11 +51,11 @@ export default function ForgotPasswordPage() {
               </h2>
               
               <p className="text-gray-600 mb-6">
-                We've sent a password reset link to <strong>{email}</strong>
+                We&apos;ve sent a password reset link to <strong>{email}</strong>
               </p>
               
               <p className="text-sm text-gray-500 mb-6">
-                Didn't receive the email? Check your spam folder or{' '}
+                Didn&apos;t receive the email? Check your spam folder or{' '}
                 <button
                   onClick={() => setIsSubmitted(false)}
                   className="text-orange hover:text-orange-dark font-medium"
@@ -64,7 +64,7 @@ export default function ForgotPasswordPage() {
                 </button>
               </p>
               
-              <Link href="/login">
+              <Link href="/signin">
                 <Button variant="outline" className="w-full">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back to Sign In
@@ -93,7 +93,7 @@ export default function ForgotPasswordPage() {
             Forgot your password?
           </h2>
           <p className="mt-2 text-gray-600">
-            No worries, we'll send you reset instructions
+            No worries, we&apos;ll send you reset instructions
           </p>
         </div>
 
@@ -131,7 +131,7 @@ export default function ForgotPasswordPage() {
             </form>
 
             <div className="mt-6 text-center">
-              <Link href="/login" className="text-sm text-orange hover:text-orange-dark">
+              <Link href="/signin" className="text-sm text-orange hover:text-orange-dark">
                 <ArrowLeft className="w-4 h-4 inline mr-1" />
                 Back to Sign In
               </Link>

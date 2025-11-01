@@ -172,3 +172,4 @@ storybook-static/
 
 # Template directory (old project files)
 salephone template/
+salephone_schema.sql

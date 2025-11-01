@@ -15,26 +15,24 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-  const { user, isAuthenticated, checkAuth } = useAuthStore()
+  const { user, session, isLoading } = useAuthStore()
   const { loadUserDevices } = useDeviceStore()
   const { loadUserRecommendations } = useRecommendationStore()
   const router = useRouter()
 
   useEffect(() => {
-    checkAuth()
-    
-    if (!isAuthenticated) {
-      router.push('/login')
+    if (!isLoading && !session) {
+      router.replace('/signin')
       return
     }
 
-    if (user) {
-      loadUserDevices(user.id)
-      loadUserRecommendations(user.id)
+    if (session?.user && user) {
+      loadUserDevices(session.user.id)
+      loadUserRecommendations(session.user.id)
     }
-  }, [isAuthenticated, user, checkAuth, loadUserDevices, loadUserRecommendations, router])
+  }, [isLoading, session, user, loadUserDevices, loadUserRecommendations, router])
 
-  if (!isAuthenticated || !user) {
+  if (isLoading || !session || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange"></div>

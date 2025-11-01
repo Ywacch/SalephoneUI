@@ -82,7 +82,7 @@ export function ResponsiveSidebar({ isOpen, onToggle, currentPath }: ResponsiveS
             <div className="w-8 h-8 bg-orange rounded-lg flex items-center justify-center">
               <Zap className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold">RevUp</span>
+            <span className="text-xl font-bold">Salephone</span>
           </motion.div>
         )}
         
@@ -263,13 +263,13 @@ export function MobileHeader({ onToggle }: { onToggle: () => void }) {
             <div className="w-8 h-8 bg-orange rounded-lg flex items-center justify-center">
               <Zap className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900">RevUp</span>
+            <span className="text-xl font-bold text-gray-900">Salephone</span>
           </div>
         </div>
 
         <div className="flex items-center space-x-3">
           <div className="text-right">
-            <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+            <p className="text-sm font-medium text-gray-900">{user?.name ?? 'Member'}</p>
             <p className="text-xs text-gray-500">{formatCurrency(stats.totalValue)}</p>
           </div>
           

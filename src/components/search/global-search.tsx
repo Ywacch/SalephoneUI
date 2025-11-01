@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { useDeviceStore } from '@/stores/deviceStore'
@@ -39,27 +39,7 @@ export function GlobalSearch({ isOpen, onClose, searchQuery, onSearchChange }: G
     setLocalQuery(searchQuery)
   }, [searchQuery])
 
-  useEffect(() => {
-    if (localQuery.trim().length > 0) {
-      setIsLoading(true)
-      // Simulate search delay
-      const timer = setTimeout(() => {
-        performSearch(localQuery)
-        setIsLoading(false)
-      }, 300)
-      return () => clearTimeout(timer)
-    } else {
-      setResults([])
-    }
-  }, [localQuery])
-
-  useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus()
-    }
-  }, [isOpen])
-
-  const performSearch = (query: string) => {
+  const performSearch = useCallback((query: string) => {
     const searchTerm = query.toLowerCase()
     const searchResults: any[] = []
 
@@ -145,7 +125,27 @@ export function GlobalSearch({ isOpen, onClose, searchQuery, onSearchChange }: G
     }
 
     setResults(searchResults.slice(0, 8)) // Limit to 8 results
-  }
+  }, [devices, recommendations])
+
+  useEffect(() => {
+    if (localQuery.trim().length > 0) {
+      setIsLoading(true)
+      // Simulate search delay
+      const timer = setTimeout(() => {
+        performSearch(localQuery)
+        setIsLoading(false)
+      }, 300)
+      return () => clearTimeout(timer)
+    } else {
+      setResults([])
+    }
+  }, [localQuery, performSearch])
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [isOpen])
 
   const handleResultClick = (result: any) => {
     router.push(result.href)

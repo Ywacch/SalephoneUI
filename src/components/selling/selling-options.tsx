@@ -239,7 +239,7 @@ export function SellingOptions({ device, onClose }: SellingOptionsProps) {
                     <Share2 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-900 mb-2">No Social Platforms Connected</h3>
                     <p className="text-gray-500 mb-4">
-                      Connect your social media accounts to automatically post when it's time to sell.
+                      Connect your social media accounts to automatically post when it&apos;s time to sell.
                     </p>
                     <Button variant="outline">
                       <Settings className="w-4 h-4 mr-2" />
@@ -298,7 +298,7 @@ export function SellingOptions({ device, onClose }: SellingOptionsProps) {
                     <ShoppingCart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-900 mb-2">No E-commerce Platforms Connected</h3>
                     <p className="text-gray-500 mb-4">
-                      Connect your selling platforms to automatically list items when it's time to sell.
+                      Connect your selling platforms to automatically list items when it&apos;s time to sell.
                     </p>
                     <Button variant="outline">
                       <Settings className="w-4 h-4 mr-2" />

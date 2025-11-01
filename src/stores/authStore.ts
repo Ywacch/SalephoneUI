@@ -1,129 +1,127 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-import { User, LoginFormData, RegisterFormData } from '@/types'
-import { demoUsers } from '@/data/demo-data'
+import type { Session } from '@supabase/supabase-js'
+import type { Tables } from '@/lib/supabase/types'
+import { createSupabaseBrowserClient } from '@/lib/supabase/client'
+import { ensureUserProfile, mapProfileToUser } from '@/lib/auth'
+import type { User } from '@/types'
 
 interface AuthState {
+  session: Session | null
+  profile: Tables<'users'> | null
   user: User | null
-  isAuthenticated: boolean
   isLoading: boolean
-  login: (data: LoginFormData) => Promise<{ success: boolean; message?: string }>
-  register: (data: RegisterFormData) => Promise<{ success: boolean; message?: string }>
-  logout: () => void
+  initialize: () => Promise<void>
+  refreshProfile: () => Promise<void>
+  logout: () => Promise<void>
   updateUser: (updates: Partial<User>) => void
-  checkAuth: () => void
 }
 
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set, get) => ({
-      user: null,
-      isAuthenticated: false,
-      isLoading: false,
+const supabase = createSupabaseBrowserClient()
 
-      login: async (data: LoginFormData) => {
-        set({ isLoading: true })
-        
-        try {
-          // Simulate API call
-          await new Promise(resolve => setTimeout(resolve, 1000))
-          
-          // Find user in demo data
-          const user = demoUsers.find(u => u.email === data.email)
-          
-          if (!user) {
-            set({ isLoading: false })
-            return { success: false, message: 'Invalid email or password' }
-          }
-          
-          // In a real app, you'd verify the password here
-          set({ 
-            user, 
-            isAuthenticated: true, 
-            isLoading: false 
-          })
-          
-          return { success: true }
-        } catch (error) {
-          set({ isLoading: false })
-          return { success: false, message: 'Login failed. Please try again.' }
-        }
-      },
+const mapSessionFallback = (session: Session): User => ({
+  id: session.user.id,
+  name: session.user.user_metadata?.full_name ?? session.user.email ?? 'User',
+  email: session.user.email ?? '',
+  avatar: (session.user.user_metadata?.avatar_url as string | undefined) ?? undefined,
+  joinDate: session.user.created_at,
+  totalDevices: 0,
+  portfolioValue: 0,
+  totalSavings: 0,
+  preferences: {
+    currency: 'USD',
+    theme: 'system',
+    notifications: true,
+    emailUpdates: true,
+    pushNotifications: false,
+  },
+})
 
-      register: async (data: RegisterFormData) => {
-        set({ isLoading: true })
-        
-        try {
-          // Simulate API call
-          await new Promise(resolve => setTimeout(resolve, 1000))
-          
-          // Check if user already exists
-          const existingUser = demoUsers.find(u => u.email === data.email)
-          if (existingUser) {
-            set({ isLoading: false })
-            return { success: false, message: 'User with this email already exists' }
-          }
-          
-          // Create new user
-          const newUser: User = {
-            id: `user_${Date.now()}`,
-            name: data.name,
-            email: data.email,
-            joinDate: new Date().toISOString(),
-            totalDevices: 0,
-            portfolioValue: 0,
-            totalSavings: 0,
-            preferences: {
-              currency: 'USD',
-              theme: 'system',
-              notifications: true,
-              emailUpdates: true,
-              pushNotifications: true,
-            }
-          }
-          
-          set({ 
-            user: newUser, 
-            isAuthenticated: true, 
-            isLoading: false 
-          })
-          
-          return { success: true }
-        } catch (error) {
-          set({ isLoading: false })
-          return { success: false, message: 'Registration failed. Please try again.' }
-        }
-      },
+export const useAuthStore = create<AuthState>((set, get) => ({
+  session: null,
+  profile: null,
+  user: null,
+  isLoading: true,
 
-      logout: () => {
-        set({ 
-          user: null, 
-          isAuthenticated: false 
-        })
-      },
+  initialize: async () => {
+    set({ isLoading: true })
+    const { data } = await supabase.auth.getSession()
+    await syncSession(data.session)
+  },
 
-      updateUser: (updates: Partial<User>) => {
-        const { user } = get()
-        if (user) {
-          set({ 
-            user: { ...user, ...updates } 
-          })
-        }
-      },
+  refreshProfile: async () => {
+    const { data } = await supabase.auth.getSession()
+    await syncSession(data.session)
+  },
 
-      checkAuth: () => {
-        const { user } = get()
-        if (user) {
-          set({ isAuthenticated: true })
-        }
-      },
-    }),
-    {
-      name: 'auth-storage',
-      partialize: (state) => ({ 
-        user: state.user, 
-        isAuthenticated: state.isAuthenticated 
-      }),
+  logout: async () => {
+    await supabase.auth.signOut()
+    await syncSession(null)
+  },
+
+  updateUser: (updates: Partial<User>) => {
+    const currentUser = get().user
+    const currentProfile = get().profile
+
+    if (!currentUser) return
+
+    const updatedUser: User = { ...currentUser, ...updates }
+
+    let updatedProfile: Tables<'users'> | null = currentProfile
+
+    if (currentProfile) {
+      updatedProfile = {
+        ...currentProfile,
+        full_name: updates.name ?? currentProfile.full_name,
+        avatar_url: updates.avatar ?? currentProfile.avatar_url,
+        updated_at: new Date().toISOString(),
+      }
     }
-  )
-)
+
+    set({
+      user: updatedUser,
+      profile: updatedProfile ?? null,
+    })
+  },
+}))
+
+const syncSession = async (session: Session | null) => {
+  if (!session) {
+    useAuthStore.setState({
+      session: null,
+      profile: null,
+      user: null,
+      isLoading: false,
+    })
+    return
+  }
+
+  useAuthStore.setState({ isLoading: true })
+
+  try {
+    const profile = await ensureUserProfile(supabase, session.user)
+
+    useAuthStore.setState({
+      session,
+      profile,
+      user: profile ? mapProfileToUser(profile) : mapSessionFallback(session),
+      isLoading: false,
+    })
+  } catch (error) {
+    console.error('Failed to sync auth session', error)
+    useAuthStore.setState({
+      session,
+      profile: null,
+      user: mapSessionFallback(session),
+      isLoading: false,
+    })
+  }
+}
+
+// Initialize auth state on module load
+supabase.auth.getSession().then(({ data }) => {
+  syncSession(data.session)
+})
+
+supabase.auth.onAuthStateChange((_, session) => {
+  syncSession(session)
+})

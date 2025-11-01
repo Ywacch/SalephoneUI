@@ -42,12 +42,12 @@ export function LandingPage() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Link href="/login">
+              <Link href="/signin">
                 <Button variant="ghost" size="sm">
                   Sign In
                 </Button>
               </Link>
-              <Link href="/register">
+              <Link href="/signup">
                 <Button size="sm">
                   Get Started
                 </Button>
@@ -85,7 +85,7 @@ export function LandingPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
-              <Link href="/register">
+              <Link href="/signup">
                 <Button size="lg" className="w-full sm:w-auto">
                   Try Salephone Now
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -258,7 +258,7 @@ export function LandingPage() {
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Earn and save more with Salephone
             </p>
-            <Link href="/register">
+            <Link href="/signup">
               <Button size="lg" className="bg-orange hover:bg-orange-dark">
                 Try Salephone Now
                 <ArrowRight className="w-4 h-4 ml-2" />

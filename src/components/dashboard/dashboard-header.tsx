@@ -21,6 +21,8 @@ import {
   User
 } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 interface DashboardHeaderProps {
   onToggleSidebar: () => void
@@ -32,12 +34,15 @@ export function DashboardHeader({ onToggleSidebar }: DashboardHeaderProps) {
   const [showSearch, setShowSearch] = useState(false)
   const { user, logout } = useAuthStore()
   const { getActiveRecommendations } = useRecommendationStore()
+  const router = useRouter()
   
   const activeRecommendations = getActiveRecommendations()
   const notificationCount = activeRecommendations.filter(r => r.urgency === 'high').length
 
-  const handleLogout = () => {
-    logout()
+  const handleLogout = async () => {
+    await logout()
+    toast.success('Signed out successfully')
+    router.replace('/signin')
   }
 
   return (
@@ -112,7 +117,7 @@ export function DashboardHeader({ onToggleSidebar }: DashboardHeaderProps) {
               </Avatar>
               <div className="hidden md:block text-left">
                 <p className="text-sm font-medium text-gray-900">{user?.name}</p>
-                <p className="text-xs text-gray-500">${user?.portfolioValue.toLocaleString()}</p>
+                <p className="text-xs text-gray-500">${user?.portfolioValue?.toLocaleString?.() ?? '0'}</p>
               </div>
               <ChevronDown className="w-4 h-4 text-gray-400" />
             </Button>

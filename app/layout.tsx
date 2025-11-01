@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from '@/components/providers'
 import { Toaster } from 'sonner'
+import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 // Force dynamic rendering for all pages
 export const dynamic = 'force-dynamic'
@@ -57,15 +58,20 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const supabase = createSupabaseServerClient()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Providers>
+        <Providers initialSession={session}>
           {children}
           <Toaster 
             position="top-right"

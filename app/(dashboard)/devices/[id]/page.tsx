@@ -357,7 +357,7 @@ export default function DeviceDetailsPage() {
           >
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Delete Device</h3>
             <p className="text-gray-600 mb-6">
-              Are you sure you want to delete "{device.name}"? This action cannot be undone.
+              Are you sure you want to delete &ldquo;{device.name}&rdquo;? This action cannot be undone.
             </p>
             <div className="flex space-x-3">
               <Button

@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useAuthStore } from '@/stores/authStore'
 import { useRecommendationStore } from '@/stores/recommendationStore'
-import { cn } from '@/lib/utils'
+import { cn, formatCurrency } from '@/lib/utils'
 import { 
   Home, 
   Smartphone, 
@@ -121,7 +121,13 @@ export function DashboardSidebar({ collapsed, onToggle }: DashboardSidebarProps)
               <Avatar className="w-10 h-10">
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="bg-orange text-white">
-                  {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                  {user.name
+                    ? user.name
+                        .split(' ')
+                        .map(n => n[0])
+                        .join('')
+                        .toUpperCase()
+                    : 'U'}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
@@ -129,7 +135,7 @@ export function DashboardSidebar({ collapsed, onToggle }: DashboardSidebarProps)
                   {user.name}
                 </p>
                 <p className="text-xs text-gray-400 truncate">
-                  Portfolio: ${user.portfolioValue.toLocaleString()}
+                  Portfolio: {formatCurrency(user.portfolioValue ?? 0)}
                 </p>
               </div>
             </div>

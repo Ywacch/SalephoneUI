@@ -107,7 +107,7 @@ export default function EditDevicePage() {
             <AlertTriangle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Device not found</h3>
             <p className="text-gray-600 mb-6">
-              The device you're looking for doesn't exist or has been deleted.
+              The device you&apos;re looking for doesn&apos;t exist or has been deleted.
             </p>
             <Link href="/devices">
               <Button>

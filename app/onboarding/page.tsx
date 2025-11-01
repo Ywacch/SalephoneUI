@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
@@ -54,11 +54,17 @@ export default function OnboardingPage() {
     deviceCategories: [],
     firstDevice: undefined
   })
-  const [isLoading, setIsLoading] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   
-  const { user, updateUser } = useAuthStore()
+  const { user, session, isLoading: authLoading, updateUser } = useAuthStore()
   const { addDevice } = useDeviceStore()
   const router = useRouter()
+
+  useEffect(() => {
+    if (!authLoading && !session) {
+      router.replace('/signin')
+    }
+  }, [authLoading, session, router])
 
   const updateOnboardingData = (updates: Partial<OnboardingData>) => {
     setOnboardingData(prev => ({ ...prev, ...updates }))
@@ -87,7 +93,7 @@ export default function OnboardingPage() {
   }
 
   const handleComplete = async () => {
-    setIsLoading(true)
+    setIsSubmitting(true)
     
     try {
       // Update user profile
@@ -108,8 +114,20 @@ export default function OnboardingPage() {
     } catch (error) {
       toast.error('Failed to complete setup')
     } finally {
-      setIsLoading(false)
+      setIsSubmitting(false)
     }
+  }
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange"></div>
+      </div>
+    )
+  }
+
+  if (!session) {
+    return null
   }
 
   const getCategoryIcon = (category: DeviceCategory) => {
@@ -172,7 +190,7 @@ export default function OnboardingPage() {
                   </div>
                   <CardTitle className="text-2xl">Welcome to RevUp!</CardTitle>
                   <p className="text-gray-600">
-                    Let's set up your profile to get started
+                    Let&apos;s set up your profile to get started
                   </p>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -197,7 +215,7 @@ export default function OnboardingPage() {
                       <div>
                         <h4 className="font-medium text-gray-900">Pro Tip</h4>
                         <p className="text-sm text-gray-600 mt-1">
-                          We'll use this to personalize your experience and provide better recommendations.
+                          We&apos;ll use this to personalize your experience and provide better recommendations.
                         </p>
                       </div>
                     </div>
@@ -320,7 +338,7 @@ export default function OnboardingPage() {
                   </div>
                   <CardTitle className="text-2xl">Add Your First Device</CardTitle>
                   <p className="text-gray-600">
-                    Let's start by adding one of your devices to see how RevUp works
+                    Let&apos;s start by adding one of your devices to see how RevUp works
                   </p>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -482,9 +500,9 @@ export default function OnboardingPage() {
                     </Button>
                     <Button
                       onClick={handleComplete}
-                      disabled={isLoading || !onboardingData.firstDevice?.category}
+                      disabled={isSubmitting || !onboardingData.firstDevice?.category}
                     >
-                      {isLoading ? 'Setting up...' : 'Complete Setup'}
+                      {isSubmitting ? 'Setting up...' : 'Complete Setup'}
                       <Check className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
